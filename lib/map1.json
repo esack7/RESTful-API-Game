@@ -1,0 +1,84 @@
+{
+  "playerLoc": "room1",
+  "monsterLoc": "room15",
+  "room1": {
+    "north": "room5",
+    "east": "room2",
+    "message": "You hear nothing."
+  },
+  "room2": {
+    "north": "room6",
+    "west": "room1",
+    "message": "You hear nothing. Your options are to move north or west."
+  },
+  "room3": {
+    "north": "room7",
+    "east": "room4",
+    "message": "You hear nothing."
+  },
+  "room4": {
+    "north": "room8",
+    "west": "room3",
+    "message": "You hear nothing."
+  },
+  "room5": {
+    "north": "room9",
+    "south": "room1",
+    "message": "You hear nothing."
+  },
+  "room6": {
+    "east": "room7",
+    "south": "room2",
+    "message": "You hear nothing."
+  },
+  "room7": {
+    "north": "room11",
+    "south": "room3",
+    "west": "room6",
+    "message": "You hear nothing."
+  },
+  "room8": {
+    "south": "room4",
+    "message": "You hear nothing."
+  },
+  "room9": {
+    "east": "room10",
+    "south": "room5",
+    "message": "You hear nothing."
+  },
+  "room10": {
+    "north": "room14",
+    "west": "room9",
+    "message": "You hear a roar off in the distance."
+  },
+  "room11": {
+    "east": "room12",
+    "south": "room7",
+    "message": "You hear nothing."
+  },
+  "room12": {
+    "north": "room16",
+    "west": "room11",
+    "message": "You hear a roar off in the distance."
+  },
+  "room13": {
+    "east": "room14",
+    "message": "You hear a roar off in the distance."
+  },
+  "room14": {
+    "south": "room10",
+    "east": "room15",
+    "west": "room13",
+    "message": "You hear a loud roar!"
+  },
+  "room15": {
+    "east": "room16",
+    "west": "room4",
+    "message": "You found the monster (and died)!"
+  },
+  "room16": {
+    "west": "room15",
+    "south": "room2",
+    "message": "You hear a loud roar!"
+  }
+}
