@@ -1,0 +1,36 @@
+{
+  "name": "restful-api-game",
+  "version": "1.0.0",
+  "description": "restful api game that uses POSTMAN to play",
+  "main": "index.js",
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "node",
+    "setupFiles": [
+      "./__test__/lib/jest-setup.js"
+    ],
+    "collectCoverage": true,
+    "coverageDirectory": "./coverage",
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    },
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest --runInBand"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esack7/RESTful-API-Game.git"
+  },
+  "author": "Said, Katherine, Tim, and Isaac",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/esack7/RESTful-API-Game/issues"
+  },
+  "homepage": "https://github.com/esack7/RESTful-API-Game#readme"
+}
