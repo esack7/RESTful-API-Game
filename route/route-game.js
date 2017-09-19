@@ -30,7 +30,7 @@ module.exports = function(router) {
         return new Game(mapObj).save();
       })
       .then(game => {
-        console.log('CONSOLE-LOG: ', game);
+        //console.log('CONSOLE-LOG: ', game);
         res.send(`New game started using ${mapName} file. Your game ID is... ${game._id}`);
       })
       .catch(err => {
@@ -42,14 +42,20 @@ module.exports = function(router) {
     debug('PUT /api/game/:_id/move/:dir');
 
     let direction = req.params.dir;
+    //console.log('CONSOLE-LOG: ', direction);
     if (direction !== 'north' || direction !== 'south' || direction !== 'east' || direction !== 'west') {
       errorHandler(new Error('Move direction must be north, south, east, or west'), req, res);
     }
-    return Game.findById(req.params._id, { upsert:true, runValidators:true })
+    return Game.findById(req.params._id)
       .then(game => {
+        //console.log('CONSOLE-LOG-1: ', game.map);
+        let mapTemp = JSON.parse(game.map);
+        //game.map = mapTemp;
+        //console.log('CONSOLE-LOG-2: ', mapTemp.room6.east);
         let currentLoc = game.playerLoc;
-        if (game.map[`${currentLoc}`].hasOwnProperty(`${direction}`)) {
-          game.playerLoc = game[`${direction}`];
+        if (mapTemp[`${currentLoc}`].hasOwnProperty(`${direction}`)) {
+          game.playerLoc = mapTemp[`${currentLoc}`][`${direction}`];
+          //console.log('CONSOLE-LOG-2: ', mapTemp[`${currentLoc}`][`${direction}`]);
           return game.save();
         } else {
           errorHandler(new Error('Cannot move that direction'), req, res);
