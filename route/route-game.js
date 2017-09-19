@@ -55,7 +55,10 @@ module.exports = function(router) {
           console.log('moved', game.playerLoc);
           game.save();
           res.send(mapTemp[`${game.playerLoc}`]['message']);
-        } else {
+        } else if(game.playerLoc === game.monsterLoc) {
+          errorHandler(new Error('You are in the monster room good work you are dead and have to restart you fool.'), req, res);
+        }
+        else {
           errorHandler(new Error('Cannot move that direction'), req, res);
         }
       })
