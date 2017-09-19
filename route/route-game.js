@@ -25,10 +25,12 @@ module.exports = function(router) {
     storage.fetchOne('map1', mapName)
       .then(mapObj => {
         mapObj.userId = req.user._id;
-        console.log(mapObj.playerLoc)
-        // new Game(mapObj).save();
+        mapObj.map = JSON.stringify(mapObj.map);
+        //console.log('CONSOLE-LOG: ', mapObj);
+        return new Game(mapObj).save();
       })
       .then(game => {
+        console.log('CONSOLE-LOG: ', game);
         res.send(`New game started using ${mapName} file. Your game ID is... ${game._id}`);
       })
       .catch(err => {
