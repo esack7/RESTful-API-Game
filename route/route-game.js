@@ -20,17 +20,20 @@ module.exports = function(router) {
     debug('POST /api/game');
 
     // http POST (auth token) :5000/api/game mapName='map1'
+
     let mapName = req.body.mapName;
-    storage.fetchOne('map', mapName)
-    .then(mapObj => {
-      return new Game(mapObj.playerLoc, mapObj.monsterLoc, mapObj.map).save();
-    })
-    .then(game => {
-      res.send(`New game started using ${mapName} file. Your game ID is ${game._id}`);
-    })
-    .catch(err => {
-      errorHandler(err, req, res);
-    });
+    storage.fetchOne('map1', mapName)
+      .then(mapObj => {
+        mapObj.userId = req.user._id;
+        console.log(mapObj.playerLoc)
+        // new Game(mapObj).save();
+      })
+      .then(game => {
+        res.send(`New game started using ${mapName} file. Your game ID is... ${game._id}`);
+      })
+      .catch(err => {
+        errorHandler(err, req, res);
+      });
   });
 
   router.put('/api/game/:_id/move/:dir', bearerAuth, (req, res) => {
@@ -45,6 +48,7 @@ module.exports = function(router) {
         let currentLoc = game.playerLoc;
         if (game.map[`${currentLoc}`].hasOwnProperty(`${direction}`)) {
           game.playerLoc = game[`${direction}`];
+          return game.save();
         } else {
           errorHandler(new Error('Cannot move that direction'), req, res);
         }
@@ -52,9 +56,6 @@ module.exports = function(router) {
       .then(() => res.sendStatus(204))
       .catch(err => errorHandler(err, req, res));
   });
-
-
-
 
 
   // router.get('/api/game/:_id', bearerAuth, (req, res) => {
