@@ -1,3 +1,4 @@
 'use strict';
 
-console.log('hello world!');
+require('dotenv').config();
+require('./lib/server').start();
