@@ -8,8 +8,8 @@
 - [About](#about)
 - [Contributors](#contributors)
 - [Installation](#installation)
-- [Playing the Game](#playing)
-- [Loading and Creating Custom Games](#loading)
+- [Playing the Game](#playing-the-game)
+- [Loading and Creating Custom Games](#loading-and-creating-custom-games)
 - [License](#license)
 
 ## About
