@@ -1,5 +1,8 @@
 # RESTful-API Game
 
+![alt text][logo]
+
+[logo]: monsters.jpg " IKST"
 ## Table of Content
 
 - [About](#about)
