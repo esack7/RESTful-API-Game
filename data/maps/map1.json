@@ -73,9 +73,7 @@
       "message": "You hear a loud roar!"
     },
     "room15": {
-      "east": "room16",
-      "west": "room4",
-      "message": "You found the monster (and died)!"
+      "message": "You found the monster (and died)! GAME OVER!"
     },
     "room16": {
       "west": "room15",
