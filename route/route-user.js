@@ -7,7 +7,7 @@ const basicAuth = require('../lib/basic-auth-middleware');
 const User = require('../model/user');
 
 module.exports = function(router) {
-  router.post('/api/signup', jsonParser, (req, res, next) => {
+  router.post('/api/signup', jsonParser, (req, res) => {
     debug('POST /api/signup');
 
     let pw = req.body.password;
@@ -22,11 +22,10 @@ module.exports = function(router) {
       .catch(err => errorHandler(err, req, res));
   });
 
-  router.get('/api/signin', basicAuth, (req, res, next) => {
+  router.get('/api/signin', basicAuth, (req, res) => {
     debug('GET /api/signin');
-
-    return User.findOne({ username: req.auth.username })
-      .then(user => user.comparePasswordHash(req.auth.password))
+    return User.findOne({ username: req.user.username })
+      .then(user => user.comparePasswordHash(req.user.password))
       .then(user => user.generateToken())
       .then(token => res.send(token))
       .catch(err => errorHandler(err, req, res));
