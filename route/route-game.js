@@ -47,6 +47,7 @@ module.exports = function(router) {
       .then(game => {
         let mapTemp = JSON.parse(game.map);
         let currentLoc = game.playerLoc;
+        let roomMessage;
 
         if (mapTemp[`${currentLoc}`].hasOwnProperty(`${direction}`)) {
           // console.log(mapTemp[`${currentLoc}`][`${direction}`])
@@ -54,12 +55,13 @@ module.exports = function(router) {
           game.playerLoc = mapTemp[`${currentLoc}`][`${direction}`];
           console.log('moved', game.playerLoc);
           game.save();
-          res.send(mapTemp[`${game.playerLoc}`]['message']);
+          roomMessage = mapTemp[`${game.playerLoc}`]['message'];
+          res.send(roomMessage);
         } else if(game.playerLoc === game.monsterLoc) {
           errorHandler(new Error('You are in the monster room good work you are dead and have to restart you fool.'), req, res);
         }
         else {
-          errorHandler(new Error('Cannot move that direction'), req, res);
+          errorHandler(new Error(`Cannot move that direction. ${roomMessage}`), req, res);
         }
       })
 
