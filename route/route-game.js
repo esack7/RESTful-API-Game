@@ -42,9 +42,7 @@ module.exports = function(router) {
     debug('PUT /api/game/:_id/move/:dir');
 
     let direction = req.params.dir;
-    // if (direction !== 'north' || direction !== 'south' || direction !== 'east' || direction !== 'west') {
-    //   errorHandler(new Error('Move direction must be north, south, east, or west'), req, res);
-    // }
+
     return Game.findById(req.params._id)
       .then(game => {
         let mapTemp = JSON.parse(game.map);
@@ -55,13 +53,15 @@ module.exports = function(router) {
           console.log('unmoved', game.playerLoc);
           game.playerLoc = mapTemp[`${currentLoc}`][`${direction}`];
           console.log('moved', game.playerLoc);
-          return game.save();
+          game.save();
+          res.send(mapTemp[`${game.playerLoc}`]['message']);
         } else {
           errorHandler(new Error('Cannot move that direction'), req, res);
         }
       })
-      .then(() => res.send('you moved good work'))
-      .then(() => res.sendStatus(204))
+
+      // .then(() => res.send(`'you moved good work'`))
+      // .then(() => res.sendStatus(204))
       .catch(err => errorHandler(err, req, res));
   });
 
