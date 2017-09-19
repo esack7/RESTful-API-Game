@@ -20,7 +20,7 @@ RESTful-API is a game utilizing http POST, GET, PUT and DELETES methods.  The ga
 
 ## Contributors
 
-[Tim Turner](https://github.com/ratiphi), [Katherine Pryszlak](https://github.com/kpryzk), [Said Abdou Mattar](https://github.com/saidmattar), [Isaac Heist](https://github.com/esack7)
+[Tim Turner](https://github.com/ratiphi):smiling_imp:, [Katherine Pryszlak](https://github.com/kpryzk), [Said Abdou Mattar](https://github.com/saidmattar), [Isaac Heist](https://github.com/esack7)
 
 ## Installation
 
