@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "restful api game that uses POSTMAN to play",
   "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
   "jest": {
     "verbose": true,
     "testEnvironment": "node",
@@ -23,7 +26,7 @@
   "scripts": {
     "start": "node index.js",
     "start:watch": "nodemon index.js",
-    "start:debug": "DEBUG=cfgram* nodemon index.js",
+    "start:debug": "DEBUG=restfulgame* nodemon index.js",
     "start-db": "mkdir -p ./db && mongod --dbpath ./db",
     "stop-db": "killall mongod",
     "test": "jest --runInBand",
