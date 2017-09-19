@@ -21,9 +21,31 @@ RESTful-API is a game utilizing http POST, GET, PUT and DELETES methods.  The ga
 
 ## Installation
 
+Clone or fork the project to your localhost.
 
+Navigate to the ```RESTful-API-Game/``` directory.  Run ```npm install``` to install all package dependencies.
+
+The required dependencies are:
+- bcrypt
+- bluebird
+- body-parser
+- cors
+- dotenv
+- express
+- jsonwebtoken
+- mongoose
+
+Create a .env file with the following:
+
+```
+MONGODB_URI='mongodb://localhost/<name of your database>'
+APP_SECRET='<a secret word>'
+PORT=<a port number>
+```
 
 ## Playing the Game
+
+
 
 ## Loading and Creating Custom Games
 
