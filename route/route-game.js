@@ -42,19 +42,25 @@ module.exports = function(router) {
     debug('PUT /api/game/:_id/move/:dir');
 
     let direction = req.params.dir;
-    if (direction !== 'north' || direction !== 'south' || direction !== 'east' || direction !== 'west') {
-      errorHandler(new Error('Move direction must be north, south, east, or west'), req, res);
-    }
-    return Game.findById(req.params._id, { upsert:true, runValidators:true })
+    // if (direction !== 'north' || direction !== 'south' || direction !== 'east' || direction !== 'west') {
+    //   errorHandler(new Error('Move direction must be north, south, east, or west'), req, res);
+    // }
+    return Game.findById(req.params._id)
       .then(game => {
+        let mapTemp = JSON.parse(game.map);
         let currentLoc = game.playerLoc;
-        if (game.map[`${currentLoc}`].hasOwnProperty(`${direction}`)) {
-          game.playerLoc = game[`${direction}`];
+
+        if (mapTemp[`${currentLoc}`].hasOwnProperty(`${direction}`)) {
+          // console.log(mapTemp[`${currentLoc}`][`${direction}`])
+          console.log('unmoved', game.playerLoc);
+          game.playerLoc = mapTemp[`${currentLoc}`][`${direction}`];
+          console.log('moved', game.playerLoc);
           return game.save();
         } else {
           errorHandler(new Error('Cannot move that direction'), req, res);
         }
       })
+      .then(() => res.send('you moved good work'))
       .then(() => res.sendStatus(204))
       .catch(err => errorHandler(err, req, res));
   });
