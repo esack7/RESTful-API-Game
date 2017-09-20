@@ -61,7 +61,7 @@ module.exports = function(router) {
           errorHandler(new Error('You are in the monster room good work you are dead and have to restart you fool.'), req, res);
         }
         else {
-          errorHandler(new Error(`Cannot move that direction. ${roomMessage}`), req, res);
+          errorHandler(new Error(`Cannot move in that direction. ${roomMessage}`), req, res);
         }
       })
 
@@ -91,10 +91,10 @@ module.exports = function(router) {
           console.log('the room you are in', game.playerLoc);
           console.log('the room you are attacking', mapTemp[`${currentLoc}`][`${direction}`]);
 
-          errorHandler(new Error('You missed the monster because you threw a thing in the wrong direction and now either maybe you are dead or also maybe you have one fewer resource'), req, res);
+          errorHandler(new Error('You missed the monster!  You lack the magical fortitude to throw another fireball.  GAME OVER!'), req, res);
         }
         else {
-          errorHandler(new Error(`There's nothing in that direction`), req, res);
+          errorHandler(new Error(`Cannot attack in that direction.`), req, res);
         }
       })
 
