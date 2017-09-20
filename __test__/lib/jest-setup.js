@@ -1,3 +1,3 @@
-'use strict'
+'use strict';
 
-require('dotenv').config({ path: `${__dirname}/.test.env` })
+require('dotenv').config({ path: `${__dirname}/.test.env` });
