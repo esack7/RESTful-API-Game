@@ -49,22 +49,27 @@ module.exports = function(router) {
         let currentLoc = game.playerLoc;
         let roomMessage;
 
-        if (mapTemp[`${currentLoc}`].hasOwnProperty(`${direction}`)) {
-          // console.log(mapTemp[`${currentLoc}`][`${direction}`])
-          console.log('unmoved', game.playerLoc);
-          game.playerLoc = mapTemp[`${currentLoc}`][`${direction}`];
-          console.log('moved', game.playerLoc);
-          game.save();
-          roomMessage = mapTemp[`${game.playerLoc}`]['message'];
-          res.send(roomMessage);
-        } else if(game.playerLoc === game.monsterLoc) {
-          errorHandler(new Error('You are in the monster room good work you are dead and have to restart you fool.'), req, res);
-        }
-        else {
-          errorHandler(new Error(`Cannot move that direction. ${roomMessage}`), req, res);
+        if (game.gameOver === false) {
+          if (mapTemp[`${currentLoc}`].hasOwnProperty(`${direction}`)) {
+            // console.log(mapTemp[`${currentLoc}`][`${direction}`])
+            console.log('unmoved', game.playerLoc);
+            game.playerLoc = mapTemp[`${currentLoc}`][`${direction}`];
+            console.log('moved', game.playerLoc);
+            game.save();
+            roomMessage = mapTemp[`${game.playerLoc}`]['message'];
+            res.send(roomMessage);
+          } else if(game.playerLoc === game.monsterLoc) {
+            errorHandler(new Error('You found the monster and he ate you! GAME OVER!'), req, res);
+            game.gameOver = true;
+            game.save();
+          }
+          else {
+            errorHandler(new Error(`Cannot move in that direction. ${roomMessage}`), req, res);
+          }
+        } else {
+          errorHandler(new Error('GAME OVER!  To start a new game POST to api/game/'), req, res);
         }
       })
-
       // .then(() => res.send(`'you moved good work'`))
       // .then(() => res.sendStatus(204))
       .catch(err => errorHandler(err, req, res));
@@ -80,24 +85,37 @@ module.exports = function(router) {
         let mapTemp = JSON.parse(game.map);
         let currentLoc = game.playerLoc;
 
-        if (mapTemp[`${currentLoc}`].hasOwnProperty(`${direction}`) && game.monsterLoc === mapTemp[`${currentLoc}`][`${direction}`]) {
-          console.log('the room you are in', game.playerLoc);
-          console.log('the room you are attacking', mapTemp[`${currentLoc}`][`${direction}`]);
-
-          game.save();
-          res.send('You attacked and killed the monster');
-        } else if(mapTemp[`${currentLoc}`].hasOwnProperty(`${direction}`) && game.monsterLoc !== mapTemp[`${currentLoc}`][`${direction}`]) {
-          //resource--
-          console.log('the room you are in', game.playerLoc);
-          console.log('the room you are attacking', mapTemp[`${currentLoc}`][`${direction}`]);
-
-          errorHandler(new Error('You missed the monster because you threw a thing in the wrong direction and now either maybe you are dead or also maybe you have one fewer resource'), req, res);
-        }
-        else {
-          errorHandler(new Error(`There's nothing in that direction`), req, res);
+        if (game.gameOver === false) {
+          if (game.fireballs > 1) {
+            console.log('number of fireballs', game.fireballs);
+            if (mapTemp[`${currentLoc}`].hasOwnProperty(`${direction}`) && game.monsterLoc === mapTemp[`${currentLoc}`][`${direction}`]) {
+              console.log('the room you are in', game.playerLoc);
+              console.log('the room you are attacking', mapTemp[`${currentLoc}`][`${direction}`]);
+              //game.fireballs--;
+              game.gameOver = true;
+              game.save();
+              res.send('You killed the monster! YOU WIN!! GAME OVER!');
+            } else if(mapTemp[`${currentLoc}`].hasOwnProperty(`${direction}`) && game.monsterLoc !== mapTemp[`${currentLoc}`][`${direction}`]) {
+              //resource--
+              console.log('the room you are in', game.playerLoc);
+              console.log('the room you are attacking', mapTemp[`${currentLoc}`][`${direction}`]);
+              game.fireballs--;
+              game.save();
+              console.log('number of fireballs after attack', game.fireballs);
+              errorHandler(new Error(`You missed the monster!  You have ${game.fireballs} fireballs remaining!`), req, res);
+            }
+            else {
+              errorHandler(new Error(`Cannot attack in that direction.`), req, res);
+            }
+          } else {
+            errorHandler(new Error(`You are out of fireballs and cannot attack!  GAME OVER!`), req, res);
+            game.gameOver = true;
+            game.save();
+          }
+        } else {
+          errorHandler(new Error('GAME OVER!  To start a new game POST to api/game/'), req, res);
         }
       })
-
       // .then(() => res.send(`'you moved good work'`))
       // .then(() => res.sendStatus(204))
       .catch(err => errorHandler(err, req, res));
