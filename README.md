@@ -20,7 +20,10 @@ RESTful-API is a game utilizing http POST, GET, PUT and DELETES methods.  The ga
 
 ## Contributors
 
-[Tim Turner](https://github.com/ratiphi):smiling_imp:, [Katherine Pryszlak](https://github.com/kpryzk), [Said Abdou Mattar](https://github.com/saidmattar), [Isaac Heist](https://github.com/esack7)
+* [Isaac Heist](https://github.com/esack7) :neckbeard:
+* [Katherine Pryszlak](https://github.com/kpryzk) :eyes:
+* [Said Abdou Mattar](https://github.com/saidmattar) :finnadie:
+* [Tim Turner](https://github.com/ratiphi) :smiling_imp:
 
 ## Installation
 
@@ -75,13 +78,12 @@ PORT=<a port number>
     - npm test (To actually run the jest test)
 
 ###### TESTS:
-  - run run start:watch (This option won't tell what is wrong with your code) -
+  - npm run start:watch (This option won't tell what is wrong with your code) -
   - npm run start:debug - (Then attempt a POST and this option will tell you where you are wrong)
   - npm run debugger (Not sure what makes this one different or special yet...)-
 
-#### General notes/changes made from previous projects:
+
 - Created a .env file with the following:
-  - Note: The angle brackets are just placeholders and should not be included in your code.
 
 ```
 MONGODB_URI='mongodb://localhost/<name of your database>'
@@ -98,13 +100,12 @@ PORT=<a port number>
 ```
  "testtwo": "jest -i",
  ```
- - Signed up for AWS.
- - FYI, if anyone wants to keep using httpie, here's a sample request to show how you would format to use a token for auth:
+ - If youu want to use httpie, here's a sample request to show how you would format to use a token for auth:
  ```
 `http GET :5000/api/gallery/1234-5678   'Authorization:Bearer myWonderfulToken'`
 ```
-- Added multer to package.json
-- Added a .travis.yml file
+- Adde multer to package.json
+- Adde a .travis.yml file
 
 - In server.js we 'server.stop = () => {'' the server and .close() the mongoConnection.
 
