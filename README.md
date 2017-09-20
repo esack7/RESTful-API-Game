@@ -95,11 +95,8 @@ PORT=<a port number>
 ```
 "test": "jest --runInBand",
 ```
-- Created a `.env` & `.test.env` files
-- Isaiah recommended adding this as an additional test command in package.json-    
-```
- "testtwo": "jest -i",
- ```
+- Create a `.env` & `.test.env` files
+
  - If youu want to use httpie, here's a sample request to show how you would format to use a token for auth:
  ```
 `http GET :5000/api/gallery/1234-5678   'Authorization:Bearer myWonderfulToken'`
