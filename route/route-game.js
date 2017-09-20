@@ -31,7 +31,9 @@ module.exports = function(router) {
       })
       .then(game => {
         // console.log('CONSOLE-LOG: ', game);
-        res.send(`New game started using ${mapName} file. Your game ID is... ${game._id}`);
+        let tempMap = JSON.parse(game.map);
+        let tempMessage = tempMap[`${game.playerLoc}`]['message'];
+        res.send(`New game started using ${mapName} file. \nYour game ID is ${game._id}. \n\n${tempMessage}`);
       })
       .catch(err => {
         errorHandler(err, req, res);
@@ -55,6 +57,13 @@ module.exports = function(router) {
             console.log('unmoved', game.playerLoc);
             game.playerLoc = mapTemp[`${currentLoc}`][`${direction}`];
             console.log('moved', game.playerLoc);
+            if (mapTemp[`${game.playerLoc}`].hasOwnProperty('fireballScrolls')) {
+              console.log('GREAT BALLS OF FIRE:', parseInt(mapTemp[`${game.playerLoc}`]['fireballScrolls']));
+              game.fireballs += mapTemp[`${game.playerLoc}`]['fireballScrolls'];
+              mapTemp[`${game.playerLoc}`]['fireballScrolls'] = 0;
+              game.map = JSON.stringify(mapTemp);
+              console.log('GREAT BALLS OF FIRE2:', game.map);
+            }
             game.save();
             roomMessage = mapTemp[`${game.playerLoc}`]['message'];
             res.send(roomMessage);

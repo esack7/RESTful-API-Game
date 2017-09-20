@@ -1,7 +1,7 @@
 {
   "playerLoc": "room1",
   "monsterLoc": "room15",
-  "fireballs": "3",
+  "fireballs": 2,
   "gameOver": false,
   "map": {
     "room1": {
@@ -42,7 +42,8 @@
     },
     "room8": {
       "south": "room4",
-      "message": "You hear nothing. Your options are to move south."
+      "fireballScrolls": 1,
+      "message": "You hear nothing. Your options are to move south. You found a fireball scroll!"
     },
     "room9": {
       "east": "room10",
@@ -66,7 +67,8 @@
     },
     "room13": {
       "east": "room14",
-      "message": "You hear a roar off in the distance. Your options are to move east."
+      "fireballScrolls": 1,
+      "message": "You hear a roar off in the distance. Your options are to move east. You found a fireball scroll!"
     },
     "room14": {
       "south": "room10",
