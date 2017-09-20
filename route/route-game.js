@@ -30,7 +30,7 @@ module.exports = function(router) {
         return new Game(mapObj).save();
       })
       .then(game => {
-        console.log('CONSOLE-LOG: ', game);
+        // console.log('CONSOLE-LOG: ', game);
         res.send(`New game started using ${mapName} file. Your game ID is... ${game._id}`);
       })
       .catch(err => {

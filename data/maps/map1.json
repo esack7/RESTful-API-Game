@@ -70,7 +70,7 @@
       "south": "room10",
       "east": "room15",
       "west": "room13",
-      "message": "You hear a loud roar! Your options are to move east or west."
+      "message": "You hear a loud roar! Your options are to move south, east or west."
     },
     "room15": {
       "message": "You found the monster (and died)! GAME OVER!"
