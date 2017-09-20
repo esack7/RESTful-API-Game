@@ -70,6 +70,38 @@ module.exports = function(router) {
       .catch(err => errorHandler(err, req, res));
   });
 
+  router.put('/api/game/:_id/attack/:dir', bearerAuth, (req, res) => {
+    debug('PUT /api/game/:_id/attack/:dir');
+
+    let direction = req.params.dir;
+
+    return Game.findById(req.params._id)
+      .then(game => {
+        let mapTemp = JSON.parse(game.map);
+        let currentLoc = game.playerLoc;
+
+        if (mapTemp[`${currentLoc}`].hasOwnProperty(`${direction}`) && game.monsterLoc === mapTemp[`${currentLoc}`][`${direction}`]) {
+          console.log('the room you are in', game.playerLoc);
+          console.log('the room you are attacking', mapTemp[`${currentLoc}`][`${direction}`]);
+
+          game.save();
+          res.send('You attacked and killed the monster');
+        } else if(mapTemp[`${currentLoc}`].hasOwnProperty(`${direction}`) && game.monsterLoc !== mapTemp[`${currentLoc}`][`${direction}`]) {
+          //resource--
+          console.log('the room you are in', game.playerLoc);
+          console.log('the room you are attacking', mapTemp[`${currentLoc}`][`${direction}`]);
+
+          errorHandler(new Error('You missed the monster because you threw a thing in the wrong direction and now either maybe you are dead or also maybe you have one fewer resource'), req, res);
+        }
+        else {
+          errorHandler(new Error(`There's nothing in that direction`), req, res);
+        }
+      })
+
+      // .then(() => res.send(`'you moved good work'`))
+      // .then(() => res.sendStatus(204))
+      .catch(err => errorHandler(err, req, res));
+  });
 
   // router.get('/api/game/:_id', bearerAuth, (req, res) => {
   //   debug('GET /api/game/:_id');
