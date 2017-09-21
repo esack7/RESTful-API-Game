@@ -8,6 +8,7 @@ const server = require('../../lib/server');
 require('jest');
 
 describe('testing game routes', function() {
+  // beforeAll(server.stop);
   beforeAll(server.start);
   afterAll(server.stop);
   afterEach(mocks.user.removeAll);
@@ -23,7 +24,6 @@ describe('testing game routes', function() {
               .then(res => this.res = res);
           });
       });
-      // console.log(mocks.user);
       test('should return a status of 200', () => {
         expect(this.res.status).toBe(200);
       });
@@ -46,7 +46,7 @@ describe('testing game routes', function() {
               });
           });
       });
-      test('should return a status of 404', () => {
+      test('should return an Error message', () => {
         return mocks.user.createOne()
           .then(userData => {
             return superagent.post(':4444/api/game')
@@ -60,7 +60,34 @@ describe('testing game routes', function() {
           });
       });
     });
-
   });
-
+  // describe('PUT to /api/game/:_id/move/:dir', () => {
+  //   describe('valid requests', () => {
+  //     // beforeAll( () => {
+  //     //   return mocks.user.createOne()
+  //     //     .then(userData => {
+  //     //       return superagent.post(':4444/api/game')
+  //     //         .type('application/json')
+  //     //         .set('Authorization', `Bearer ${userData.token}`)
+  //     //         .send('{"mapName": "map1"}')
+  //     //         .then(res => this.res = res);
+  //     //     });
+  //     // });
+  //     // test('', () => {
+  //     //   console.log(res);
+  //     //
+  //     // });
+  //   });
+  //   describe('invalid requests', () => {
+  //
+  //   });
+  // });
+  // describe('PUT to /api/game/:_id/attack/:dir', () => {
+  //   describe('valid requests', () => {
+  //
+  //   });
+  //   describe('invalid requests', () => {
+  //
+  //   });
+  // });
 });
