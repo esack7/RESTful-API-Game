@@ -58,11 +58,10 @@ WARNING:  If you run out of fireballs at any time, the game will immediately end
 #### Game play example:
 The following example uses the Postman REST client to interact with the API.
 
-* First, you must POST to the `/api/signup/` endpoint to create an account.  Make sure to set the Content-Type to application/json in the Headers tab.
-
+:arrow_down: First, you must POST to the `/api/signup/` endpoint to create an account.  Make sure to set the Content-Type to application/json in the Headers tab.
 <kbd>![alt text](./img/1-POST-signup-headers.png "POST to /api/signup/")</kbd>
 
-Also, under the Body tab, send your `username`, `password`, and `email` as a raw JSON object.
+:arrow_down:Also, under the Body tab, send your `username`, `password`, and `email` as a raw JSON object.
 ![alt text](./img/2-POST-signup-body.png "POST to /api/signup/")
 
 Click Send to get your API token as a response.  Copy this token to use later on your API requests to play the game.
