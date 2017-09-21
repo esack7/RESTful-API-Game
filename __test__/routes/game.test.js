@@ -63,13 +63,42 @@ describe('testing game routes', function() {
   });
   describe('PUT to /api/game/:_id/move/:dir', () => {
     describe('valid requests', () => {
-      beforeAll( () => {
+      beforeEach( () => {
         return mocks.user.createOne()
           .then((userData) => {
             this.userData = userData;
             return superagent.post(':4444/api/game')
               .type('application/json')
-              .set('Authorization', `Bearer ${userData.token}`)
+              .set('Authorization', `Bearer ${this.userData.token}`)
+              .send('{"mapName": "map1"}')
+              .then(res => this.res = res);
+          });
+      });
+      test('Should return 200 response status', () => {
+        let _id = this.res.text.split('.')[1].split(' ')[5];
+        return superagent.put(`:4444/api/game/${_id}/move/north`)
+          .set('Authorization', `Bearer ${this.userData.token}`)
+          .then(res => {
+            expect(res.status).toBe(200);
+          });
+      });
+      test('Should give text response with room options', () => {
+        let _id = this.res.text.split('.')[1].split(' ')[5];
+        return superagent.put(`:4444/api/game/${_id}/move/north`)
+          .set('Authorization', `Bearer ${this.userData.token}`)
+          .then(res => {
+            expect(res.text).toBe('You hear nothing. Your options are to move north or south.')
+          });
+      });
+    });
+    describe('invalid requests', () => {
+      beforeEach( () => {
+        return mocks.user.createOne()
+          .then((userData) => {
+            this.userData = userData;
+            return superagent.post(':4444/api/game')
+              .type('application/json')
+              .set('Authorization', `Bearer ${this.userData.token}`)
               .send('{"mapName": "map1"}')
               .then(res => this.res = res);
           });
@@ -81,11 +110,10 @@ describe('testing game routes', function() {
           .then(res => {
             expect(res.status).toBe(200);
           });
+      });
+      test('', () => {
 
       });
-    });
-    describe('invalid requests', () => {
-
     });
   });
   describe('PUT to /api/game/:_id/attack/:dir', () => {
