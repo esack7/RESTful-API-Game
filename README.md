@@ -1,3 +1,9 @@
+<style>
+body {
+    background-color: white;
+}
+</style>
+
 # RESTful-API Game
 
 ![alt text][logo]
@@ -104,6 +110,8 @@ If you think you have located the monster, throw a fireball at him by sending a 
 If you successfully attack the monster with a fireball, he will die!  Remember, you have a limited number of fireballs.  The game is now over.  To play again, send another POST request to `/api/game/` with your API token.
 ![alt text](./img/15-PUT-attack-response-win.png "PUT to /api/game/:_id/attack/:dir/")
 
+hello there
+<kbd><img src="./img/15-PUT-attack-response-win.png" alt-text="hello"></kbd>
 
 ## Loading and Creating Custom Games
 
@@ -149,10 +157,6 @@ PORT=<a port number>
 ```
 - Create a `.env` & `.test.env` files
 
- - If youu want to use httpie, here's a sample request to show how you would format to use a token for auth:
- ```
-`http GET :5000/api/gallery/1234-5678   'Authorization:Bearer myWonderfulToken'`
-```
 - Adde multer to package.json
 - Adde a .travis.yml file
 
