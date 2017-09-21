@@ -113,7 +113,7 @@ module.exports = function(router) {
               game.fireballs--;
               game.save();
               console.log('number of fireballs after attack', game.fireballs);
-              errorHandler(new Error(`You missed the monster!  You have ${game.fireballs} fireballs remaining!`), req, res);
+              res.send(`You missed the monster!  You have ${game.fireballs} fireballs remaining!`);
             }
             else {
               errorHandler(new Error(`Cannot attack in that direction.`), req, res);
