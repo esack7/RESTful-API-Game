@@ -74,7 +74,8 @@ module.exports = function(router) {
             game.save();
           }
           else {
-            errorHandler(new Error(`Cannot move in that direction. ${roomMessage}`), req, res);
+            roomMessage = mapTemp[`${game.playerLoc}`]['message'];
+            errorHandler(new Error(`Cannot move in that direction. \n${roomMessage}`), req, res);
           }
         } else {
           errorHandler(new Error('GAME OVER!  To start a new game POST to api/game/'), req, res);
