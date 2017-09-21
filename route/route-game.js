@@ -7,31 +7,18 @@ const bearerAuth = require('../lib/bearer-auth-middleware');
 const jsonParser = require('body-parser').json();
 const storage = require('../lib/storage');
 
-// /move/north
-// get the playerLoc
-// see if they can move north
-//   if they can, check to see if monster is north
-// if they cannot, return error.
-
-
-
 module.exports = function(router) {
   router.post('/api/game', bearerAuth, jsonParser, (req, res) => {
     debug('POST /api/game');
 
-    // http POST (auth token) :5000/api/game mapName='map1'
-
     let mapName = req.body.mapName;
-    // console.log(mapName);
     storage.fetchOne(`${mapName}`, mapName)
       .then(mapObj => {
         mapObj.userId = req.user._id;
         mapObj.map = JSON.stringify(mapObj.map);
-        //console.log('CONSOLE-LOG: ', mapObj);
         return new Game(mapObj).save();
       })
       .then(game => {
-        // console.log('CONSOLE-LOG: ', game);
         let tempMap = JSON.parse(game.map);
         let tempMessage = tempMap[`${game.playerLoc}`]['message'];
         res.send(`New game started using ${mapName} file. \nYour game ID is ${game._id}. \n\n${tempMessage}`);
@@ -45,25 +32,18 @@ module.exports = function(router) {
     debug('PUT /api/game/:_id/move/:dir');
 
     let direction = req.params.dir;
-
     return Game.findById(req.params._id)
       .then(game => {
         let mapTemp = JSON.parse(game.map);
         let currentLoc = game.playerLoc;
         let roomMessage;
-
         if (game.gameOver === false) {
           if (mapTemp[`${currentLoc}`].hasOwnProperty(`${direction}`)) {
-            // console.log(mapTemp[`${currentLoc}`][`${direction}`])
-            // console.log('unmoved', game.playerLoc);
             game.playerLoc = mapTemp[`${currentLoc}`][`${direction}`];
-            // console.log('moved', game.playerLoc);
             if (mapTemp[`${game.playerLoc}`].hasOwnProperty('fireballScrolls')) {
-              // console.log('GREAT BALLS OF FIRE:', parseInt(mapTemp[`${game.playerLoc}`]['fireballScrolls']));
               game.fireballs += mapTemp[`${game.playerLoc}`]['fireballScrolls'];
               mapTemp[`${game.playerLoc}`]['fireballScrolls'] = 0;
               game.map = JSON.stringify(mapTemp);
-              // console.log('GREAT BALLS OF FIRE2:', game.map);
             }
             game.save();
             roomMessage = mapTemp[`${game.playerLoc}`]['message'];
@@ -81,8 +61,6 @@ module.exports = function(router) {
           errorHandler(new Error('GAME OVER!  To start a new game POST to api/game/'), req, res);
         }
       })
-      // .then(() => res.send(`'you moved good work'`))
-      // .then(() => res.sendStatus(204))
       .catch(err => errorHandler(err, req, res));
   });
 
@@ -90,14 +68,12 @@ module.exports = function(router) {
     debug('PUT /api/game/:_id/attack/:dir');
 
     let direction = req.params.dir;
-
     return Game.findById(req.params._id)
       .then(game => {
         let mapTemp = JSON.parse(game.map);
         let currentLoc = game.playerLoc;
-
         if (game.gameOver === false) {
-          if (game.fireballs > 1) {
+          if (game.fireballs >= 1) {
             console.log('number of fireballs', game.fireballs);
             if (mapTemp[`${currentLoc}`].hasOwnProperty(`${direction}`) && game.monsterLoc === mapTemp[`${currentLoc}`][`${direction}`]) {
               console.log('the room you are in', game.playerLoc);
@@ -127,32 +103,6 @@ module.exports = function(router) {
           errorHandler(new Error('GAME OVER!  To start a new game POST to api/game/'), req, res);
         }
       })
-      // .then(() => res.send(`'you moved good work'`))
-      // .then(() => res.sendStatus(204))
       .catch(err => errorHandler(err, req, res));
   });
-
-  // router.get('/api/game/:_id', bearerAuth, (req, res) => {
-  //   debug('GET /api/game/:_id');
-  //
-  //   return Game.findById(req.params._id)
-  //     .then(game => res.json(game))
-  //     .catch(err => errorHandler(err, req, res));
-  // });
-  //
-  // router.get('/api/game/', bearerAuth, (req, res) => {
-  //   debug('GET /api/game/');
-  //
-  //   return Game.find()
-  //     .then(game => res.json(game.map(game => game._id)))
-  //     .catch(err => errorHandler(err, req, res));
-  // });
-  //
-  // router.delete('/api/game/:_id', bearerAuth, (req, res) => {
-  //   debug('DELETE /api/game/:_id');
-  //
-  //   return Game.findByIdAndRemove(req.params._id)
-  //     .then(() => res.sendStatus(204))
-  //     .catch(err => errorHandler(err, req, res));
-  // });
 };
