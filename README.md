@@ -59,6 +59,7 @@ WARNING:  If you run out of fireballs at any time, the game will immediately end
 The following example uses the Postman REST client to interact with the API.
 
 :arrow_down: First, you must POST to the `/api/signup/` endpoint to create an account.  Make sure to set the Content-Type to application/json in the Headers tab.
+
 <kbd>![alt text](./img/1-POST-signup-headers.png "POST to /api/signup/")</kbd>
 
 :arrow_down:Also, under the Body tab, send your `username`, `password`, and `email` as a raw JSON object.
