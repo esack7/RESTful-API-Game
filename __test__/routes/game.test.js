@@ -8,6 +8,7 @@ const server = require('../../lib/server');
 require('jest');
 
 describe('testing game routes', function() {
+  // beforeAll(server.stop);
   beforeAll(server.start);
   afterAll(server.stop);
   afterEach(mocks.user.removeAll);
@@ -23,7 +24,7 @@ describe('testing game routes', function() {
               .then(res => this.res = res);
           });
       });
-      // console.log(mocks.user);
+
       test('should return a status of 200', () => {
         expect(this.res.status).toBe(200);
       });
@@ -59,8 +60,69 @@ describe('testing game routes', function() {
               });
           });
       });
+      describe('invalid POST to api/game', () => {
+        test('should return a status of 404', () => {
+          return mocks.user.createOne()
+            .then(userData => {
+              return superagent.post(':4444/api/game')
+                .type('application/json')
+                .set('Authorization', `Bearer ${userData.token}`)
+                .send('{"mapName": "doesNotExist"}')
+                .catch(err => {
+                  expect(err.status).toBe(404);
+                });
+            });
+        });
+        test('should return an Error message', () => {
+          return mocks.user.createOne()
+            .then(userData => {
+              return superagent.post(':4444/api/game')
+                .type('application/json')
+                .set('Authorization', `Bearer ${userData.token}`)
+                .send('{"mapName": "doesNotExist"}')
+                .catch(err => {
+                  // console.log(err.response.text);
+                  expect(err.response.text).toBe('Error: This file does not exist');
+                });
+            });
+        });
+      });
+    });
+    describe('PUT to /api/game/:_id/move/:dir', () => {
+      describe('valid requests', () => {
+        beforeAll( () => {
+          return mocks.user.createOne()
+            .then((userData) => {
+              this.userData = userData;
+              return superagent.post(':4444/api/game')
+                .type('application/json')
+                .set('Authorization', `Bearer ${userData.token}`)
+                .send('{"mapName": "map1"}')
+                .then(res => this.res = res);
+            });
+        });
+        test('', () => {
+          let _id = this.res.text.split('.')[1].split(' ')[5];
+          return superagent.put(`:4444/api/game/${_id}/move/north`)
+            .set('Authorization', `Bearer ${this.userData.token}`)
+            .then(res => {
+              expect(res.status).toBe(200);
+            });
+
+        });
+      });
+      describe('invalid requests', () => {
+
+      });
+    });
+    describe('PUT to /api/game/:_id/attack/:dir', () => {
+      describe('valid requests', () => {
+
+      });
+      describe('invalid requests', () => {
+      });
+
     });
 
   });
-
 });
