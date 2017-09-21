@@ -1,8 +1,8 @@
 'use strict';
 
-const faker = require('faker');
+// const faker = require('faker');
 const mocks = require('../lib/mocks');
-const User = require('../../model/user');
+// const User = require('../../model/user');
 const superagent = require('superagent');
 const server = require('../../lib/server');
 require('jest');
@@ -131,16 +131,37 @@ describe('testing game routes', function() {
               .then(res => this.res = res);
           });
       });
-      test('', () => {
+      test('Requesting a map file that doesnt exist', () => {
         let _id = this.res.text.split('.')[1].split(' ')[5];
         return superagent.put(`:4444/api/game/${_id}/move/north`)
           .set('Authorization', `Bearer ${this.userData.token}`)
-          .then(res => {
-            expect(res.status).toBe(200);
+          .send('{"mapName": "map1"}')
+          .catch(err => {
+            expect(err.status).toBe(404);
           });
       });
-      test('', () => {
-
+      test('An unauthorized call should return status 401', () => {
+        let _id = this.res.text.split('.')[1].split(' ')[5];
+        return superagent.put(`:4444/api/game/${_id}/move/north`)
+          .set('Authorization', `Bearer 99999999999999999`)
+          .catch(err => {
+            expect(err.status).toBe(401);
+          });
+      });
+      test('A put without auth headers should return 401', () => {
+        let _id = this.res.text.split('.')[1].split(' ')[5];
+        return superagent.put(`:4444/api/game/${_id}/move/north`)
+          .catch(err => {
+            expect(err.status).toBe(401);
+          });
+      });
+      test('Should return 406 for a direction that isn\'t available', () => {
+        let _id = this.res.text.split('.')[1].split(' ')[5];
+        return superagent.put(`:4444/api/game/${_id}/move/west`)
+          .set('Authorization', `Bearer ${this.userData.token}`)
+          .catch(err => {
+            expect(err.status).toBe(406);
+          });
       });
     });
   });
@@ -182,7 +203,7 @@ describe('testing game routes', function() {
         let _id = this.res.text.split('.')[1].split(' ')[5];
         return superagent.put(`:4444/api/game/${_id}/attack/west`)
           .set('Authorization', `Bearer ${this.userData.token}`)
-          .then(() => {
+          .catch((err) => {
             expect(err.status).toEqual(406);
           });
       });
