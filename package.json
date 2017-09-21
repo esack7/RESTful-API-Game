@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "restful api game that uses POSTMAN to play",
   "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
   "jest": {
     "verbose": true,
     "testEnvironment": "node",
@@ -22,7 +25,15 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "jest --runInBand"
+    "start:watch": "nodemon index.js",
+    "start:debug": "DEBUG=restfulgame* nodemon index.js",
+    "start-db": "mkdir -p ./db && mongod --dbpath ./db",
+    "stop-db": "killall mongod",
+    "test": "jest --runInBand",
+    "test:exit": "jest --forceExit",
+    "test:watch": "jest --watchAll",
+    "lint": "eslint .",
+    "lint:test": "npm run lint && npm test"
   },
   "repository": {
     "type": "git",
@@ -35,6 +46,20 @@
   },
   "homepage": "https://github.com/esack7/RESTful-API-Game#readme",
   "devDependencies": {
-    "jest": "^21.1.0"
+    "eslint": "^4.5.0",
+    "faker": "^4.1.0",
+    "jest": "^20.0.4",
+    "debug": "^3.0.1",
+    "superagent": "^3.6.0"
+  },
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.4",
+    "jsonwebtoken": "^8.0.0",
+    "mongoose": "^4.11.10"
   }
 }

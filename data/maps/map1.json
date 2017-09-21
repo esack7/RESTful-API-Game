@@ -1,0 +1,88 @@
+{
+  "playerLoc": "room1",
+  "monsterLoc": "room15",
+  "fireballs": 2,
+  "gameOver": false,
+  "map": {
+    "room1": {
+      "north": "room5",
+      "east": "room2",
+      "message": "You hear nothing. Your options are to move north or east."
+    },
+    "room2": {
+      "north": "room6",
+      "west": "room1",
+      "message": "You hear nothing. Your options are to move north or west."
+    },
+    "room3": {
+      "north": "room7",
+      "east": "room4",
+      "message": "You hear nothing. Your options are to move north or east. "
+    },
+    "room4": {
+      "north": "room8",
+      "west": "room3",
+      "message": "You hear nothing. Your options are to move north or west."
+    },
+    "room5": {
+      "north": "room9",
+      "south": "room1",
+      "message": "You hear nothing. Your options are to move north or south."
+    },
+    "room6": {
+      "east": "room7",
+      "south": "room2",
+      "message": "You hear nothing. Your options are to move east or south."
+    },
+    "room7": {
+      "north": "room11",
+      "south": "room3",
+      "west": "room6",
+      "message": "You hear nothing. Your options are to move north, south, or west."
+    },
+    "room8": {
+      "south": "room4",
+      "fireballScrolls": 1,
+      "message": "You hear nothing. Your options are to move south. You found a fireball scroll!"
+    },
+    "room9": {
+      "east": "room10",
+      "south": "room5",
+      "message": "You hear nothing. Your options are to move east or south."
+    },
+    "room10": {
+      "north": "room14",
+      "west": "room9",
+      "message": "You hear a roar off in the distance. Your options are to move north or west."
+    },
+    "room11": {
+      "east": "room12",
+      "south": "room7",
+      "message": "You hear nothing. Your options are to move east or south."
+    },
+    "room12": {
+      "north": "room16",
+      "west": "room11",
+      "message": "You hear a roar off in the distance. Your options are to move north or west."
+    },
+    "room13": {
+      "east": "room14",
+      "fireballScrolls": 1,
+      "message": "You hear a roar off in the distance. Your options are to move east. You found a fireball scroll!"
+    },
+    "room14": {
+      "south": "room10",
+      "east": "room15",
+      "west": "room13",
+      "message": "You hear a loud roar! Your options are to move south, east or west."
+    },
+    "room15": {
+      "message": "You found the monster (and died)! GAME OVER!"
+    },
+    "room16": {
+      "west": "room15",
+      "south": "room2",
+      "message": "You hear a loud roar! Your options are to move west or south."
+    }
+  }
+}
