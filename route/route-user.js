@@ -12,9 +12,7 @@ module.exports = function(router) {
 
     let pw = req.body.password;
     delete req.body.password;
-
     let user = new User(req.body);
-
     user.generatePasswordHash(pw)
       .then(user => user.save())
       .then(user => user.generateToken())
@@ -24,6 +22,7 @@ module.exports = function(router) {
 
   router.get('/api/signin', basicAuth, (req, res) => {
     debug('GET /api/signin');
+    
     return User.findOne({ username: req.user.username })
       .then(user => user.comparePasswordHash(req.user.password))
       .then(user => user.generateToken())
