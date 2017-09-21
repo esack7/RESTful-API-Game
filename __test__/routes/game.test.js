@@ -61,33 +61,39 @@ describe('testing game routes', function() {
       });
     });
   });
-  // describe('PUT to /api/game/:_id/move/:dir', () => {
-  //   describe('valid requests', () => {
-  //     // beforeAll( () => {
-  //     //   return mocks.user.createOne()
-  //     //     .then(userData => {
-  //     //       return superagent.post(':4444/api/game')
-  //     //         .type('application/json')
-  //     //         .set('Authorization', `Bearer ${userData.token}`)
-  //     //         .send('{"mapName": "map1"}')
-  //     //         .then(res => this.res = res);
-  //     //     });
-  //     // });
-  //     // test('', () => {
-  //     //   console.log(res);
-  //     //
-  //     // });
-  //   });
-  //   describe('invalid requests', () => {
-  //
-  //   });
-  // });
-  // describe('PUT to /api/game/:_id/attack/:dir', () => {
-  //   describe('valid requests', () => {
-  //
-  //   });
-  //   describe('invalid requests', () => {
-  //
-  //   });
-  // });
+  describe('PUT to /api/game/:_id/move/:dir', () => {
+    describe('valid requests', () => {
+      beforeAll( () => {
+        return mocks.user.createOne()
+          .then((userData) => {
+            this.userData = userData;
+            return superagent.post(':4444/api/game')
+              .type('application/json')
+              .set('Authorization', `Bearer ${userData.token}`)
+              .send('{"mapName": "map1"}')
+              .then(res => this.res = res);
+          });
+      });
+      test('', () => {
+        let _id = this.res.text.split('.')[1].split(' ')[5];
+        return superagent.put(`:4444/api/game/${_id}/move/north`)
+          .set('Authorization', `Bearer ${this.userData.token}`)
+          .then(res => {
+            expect(res.status).toBe(200);
+          });
+
+      });
+    });
+    describe('invalid requests', () => {
+
+    });
+  });
+  describe('PUT to /api/game/:_id/attack/:dir', () => {
+    describe('valid requests', () => {
+
+    });
+    describe('invalid requests', () => {
+
+    });
+  });
 });
