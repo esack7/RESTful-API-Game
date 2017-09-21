@@ -22,7 +22,8 @@ module.exports = function(router) {
     // http POST (auth token) :5000/api/game mapName='map1'
 
     let mapName = req.body.mapName;
-    storage.fetchOne('map1', mapName)
+    // console.log(mapName);
+    storage.fetchOne(`${mapName}`, mapName)
       .then(mapObj => {
         mapObj.userId = req.user._id;
         mapObj.map = JSON.stringify(mapObj.map);
