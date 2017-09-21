@@ -55,15 +55,15 @@ module.exports = function(router) {
         if (game.gameOver === false) {
           if (mapTemp[`${currentLoc}`].hasOwnProperty(`${direction}`)) {
             // console.log(mapTemp[`${currentLoc}`][`${direction}`])
-            console.log('unmoved', game.playerLoc);
+            // console.log('unmoved', game.playerLoc);
             game.playerLoc = mapTemp[`${currentLoc}`][`${direction}`];
-            console.log('moved', game.playerLoc);
+            // console.log('moved', game.playerLoc);
             if (mapTemp[`${game.playerLoc}`].hasOwnProperty('fireballScrolls')) {
-              console.log('GREAT BALLS OF FIRE:', parseInt(mapTemp[`${game.playerLoc}`]['fireballScrolls']));
+              // console.log('GREAT BALLS OF FIRE:', parseInt(mapTemp[`${game.playerLoc}`]['fireballScrolls']));
               game.fireballs += mapTemp[`${game.playerLoc}`]['fireballScrolls'];
               mapTemp[`${game.playerLoc}`]['fireballScrolls'] = 0;
               game.map = JSON.stringify(mapTemp);
-              console.log('GREAT BALLS OF FIRE2:', game.map);
+              // console.log('GREAT BALLS OF FIRE2:', game.map);
             }
             game.save();
             roomMessage = mapTemp[`${game.playerLoc}`]['message'];
@@ -74,7 +74,8 @@ module.exports = function(router) {
             game.save();
           }
           else {
-            errorHandler(new Error(`Cannot move in that direction. ${roomMessage}`), req, res);
+            roomMessage = mapTemp[`${game.playerLoc}`]['message'];
+            errorHandler(new Error(`Cannot move in that direction. \n${roomMessage}`), req, res);
           }
         } else {
           errorHandler(new Error('GAME OVER!  To start a new game POST to api/game/'), req, res);
