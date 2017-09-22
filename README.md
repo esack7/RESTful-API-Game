@@ -1,5 +1,5 @@
 
-# RESTful-API Game
+# Fireballs the game
 
 ![alt text][logo]
 
