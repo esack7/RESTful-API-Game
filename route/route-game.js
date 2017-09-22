@@ -74,21 +74,15 @@ module.exports = function(router) {
         let currentLoc = game.playerLoc;
         if (game.gameOver === false) {
           if (game.fireballs >= 1) {
-            console.log('number of fireballs', game.fireballs);
             if (mapTemp[`${currentLoc}`].hasOwnProperty(`${direction}`) && game.monsterLoc === mapTemp[`${currentLoc}`][`${direction}`]) {
-              console.log('the room you are in', game.playerLoc);
-              console.log('the room you are attacking', mapTemp[`${currentLoc}`][`${direction}`]);
               //game.fireballs--;
               game.gameOver = true;
               game.save();
               res.send('You killed the monster! YOU WIN!! GAME OVER!');
             } else if(mapTemp[`${currentLoc}`].hasOwnProperty(`${direction}`) && game.monsterLoc !== mapTemp[`${currentLoc}`][`${direction}`]) {
               //resource--
-              console.log('the room you are in', game.playerLoc);
-              console.log('the room you are attacking', mapTemp[`${currentLoc}`][`${direction}`]);
               game.fireballs--;
               game.save();
-              console.log('number of fireballs after attack', game.fireballs);
               res.send(`You missed the monster!  You have ${game.fireballs} fireballs remaining!`);
             }
             else {

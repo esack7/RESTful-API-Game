@@ -1,8 +1,6 @@
 'use strict';
 
-// const faker = require('faker');
 const mocks = require('../lib/mocks');
-// const User = require('../../model/user');
 const superagent = require('superagent');
 const server = require('../../lib/server');
 require('jest');
@@ -41,6 +39,18 @@ describe('testing game routes', function() {
               .type('application/json')
               .set('Authorization', `Bearer ${userData.token}`)
               .send('{"mapName": "doesNotExist"}')
+              .catch(err => {
+                expect(err.status).toBe(404);
+              });
+          });
+      });
+      test('not including mapFile, should return a status of 404', () => {
+        return mocks.user.createOne()
+          .then(userData => {
+            return superagent.post(':4444/api/game')
+              .type('application/json')
+              .set('Authorization', `Bearer ${userData.token}`)
+              // .send('{"mapName": "doesNotExist"}')
               .catch(err => {
                 expect(err.status).toBe(404);
               });
