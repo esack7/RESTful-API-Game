@@ -126,32 +126,32 @@ The following example uses the Postman REST client to interact with the API.
 ### <a name="packages"></a>Packages and commands to remember:
 
 #### For Mongo:
-- npm install mongodb into your project directory (To install Mongo) -
-- mongod (To start the MongoDB process)
-- mongo (To start the MongoDB shell-- )
+- `npm install mongodb` into your project directory (To install Mongo) -
+- `mongod` (To start the MongoDB process)
+- `mongo` (To start the MongoDB shell-- )
 
 #### General:
-  - In package.json's scripts, add- "start:debug": "DEBUG=http* nodemon server.js",
-  - npm install express -
-  - npm i or npm install (For node modules) -
+  - In package.json's scripts, add- `"start:debug": "DEBUG=http* nodemon server.js"`,
+  - `npm install express` -
+  - `npm i` or `npm install` (For node modules) -
 
 ###### HTTP requests:
-  - node server.js or just nodemon (to start a command line server) -
-  - rs (restart, if needed)
-  - ^C (control-C to stop node server)
-  - npm install httpie (A command line HTTP client, to be able to test making http requests. An alternative is postman.)
-  - npm install superagent (To be able to make http requests) -
-  - npm install uuid (For creating unique user ids) -
-  - npm install -D jest (To be able to run tests) -
-    - npm test (To actually run the jest test)
+  - `node server.js` or just `nodemon` (to start a command line server) -
+  - `rs` (restart, if needed)
+  - `^C` (control-C to stop node server)
+  - `npm install httpie` (A command line HTTP client, to be able to test making http requests. An alternative is postman.)
+  - `npm install superagent` (To be able to make http requests) -
+  - `npm install uuid` (For creating unique user ids) -
+  - `npm install -D jest` (To be able to run tests) -
+    - `npm test` (To actually run the jest test)
 
 ###### TESTS:
-  - npm run start:watch (This option won't tell what is wrong with your code) -
-  - npm run start:debug - (Then attempt a POST and this option will tell you where you are wrong)
-  - npm run debugger (Not sure what makes this one different or special yet...)-
+  - `npm run start:watch` (This option won't tell what is wrong with your code) -
+  - `npm run start:debug` - (Then attempt a POST and this option will tell you where you are wrong)
+  - `npm run debugger` (Access an interactive shell in the event of an error...)-
 
 
-- Created a .env file with the following:
+- Created a `.env` file with the following:
 
 ```
 MONGODB_URI='mongodb://localhost/<name of your database>'
@@ -165,10 +165,10 @@ PORT=<a port number>
 ```
 - Create a `.env` & `.test.env` files
 
-- Adde multer to package.json
-- Adde a .travis.yml file
+- Add `multer` to `package.json`
+- Add a `.travis.yml` file
 
-- In server.js we 'server.stop = () => {'' the server and .close() the mongoConnection.
+- In `server.js` we `server.stop` the server and `.close()` the mongoConnection.
 
 ## License
 
